@@ -8,26 +8,30 @@ This project provides an analytics and QA system for hotel booking data using Fa
    ```bash
    git clone https://github.com/yourusername/llm_booking_analytics.git
    cd llm_booking_analytics
-Create a virtual environment and install dependencies:
+2. **Create a virtual environment and install dependencies:**
 
-Copy
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-pip install -r requirements.txt
-Set up environment variables:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   pip install -r requirements.txt
+
+3. **Set up environment variables:**
 
 Create a .env file in the project root with your OpenAI API key:
-Copy
-OPENAI_API_KEY=your_openai_api_key_here
-Precompute Analytics Data:
+
+      ```bash
+      OPENAI_API_KEY=your_openai_api_key_here
+
+4. **Precompute Analytics Data:**
 
 Run the precompute script to generate analytics data:
-Copy
-python scripts/precompute.py
-Run the application:
 
-Copy
-uvicorn app.main\:app --reload
+      ```bash
+      python scripts/precompute.py
+5.**Run the application:**
+
+      ```bash
+      uvicorn app.main\:app --reload
 Usage
 API Endpoints:
 
