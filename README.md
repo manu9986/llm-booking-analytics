@@ -1,56 +1,123 @@
 # LLM-Powered Booking Analytics & QA System
 
-This project provides an analytics and QA system for hotel booking data using FastAPI, SQLite, ChromaDB, and OpenAI.
+## 📌 Overview
+This project is an **LLM-powered hotel booking analytics and QA system** built with **FastAPI, ChromaDB, OpenAI API, and SQLite**. It processes hotel booking data, provides precomputed analytics, and enables natural language interaction using **Retrieval-Augmented Generation (RAG)**.
 
-## Setup Instructions
+## 🚀 Features
+- **Data Preprocessing**: Loads, cleans, and stores hotel booking data.
+- **Precomputed Analytics**: Revenue trends, cancellation rates, booking lead times.
+- **RAG-based QA System**: Answers queries using OpenAI GPT-4 and ChromaDB for vector search.
+- **FastAPI Endpoints**: Provides analytics data and chatbot interaction.
+- **Performance Logging**: Tracks API request durations.
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/llm_booking_analytics.git
-   cd llm_booking_analytics
-2. **Create a virtual environment and install dependencies:**
+---
 
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   pip install -r requirements.txt
+## 🛠️ Installation & Setup
+### 1️⃣ **Clone the Repository**
+```bash
+git clone https://github.com/manu9986/llm-booking-analytics.git
+cd llm-booking-analytics
+```
 
-3. **Set up environment variables:**
+### 2️⃣ **Create a Virtual Environment**
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+```
 
-Create a .env file in the project root with your OpenAI API key:
+### 3️⃣ **Install Dependencies**
+```bash
+pip install -r requirements.txt
+```
 
-      ```bash
-      OPENAI_API_KEY=your_openai_api_key_here
+### 4️⃣ **Set Up Environment Variables**
+Create a `.env` file in the project root with:
+```env
+OPENAI_API_KEY=your_openai_api_key
+```
 
-4. **Precompute Analytics Data:**
+### 5️⃣ **Prepare the Database**
+```bash
+python precompute.py  # Precompute analytics and store in SQLite
+python main.py        # Embed booking data into ChromaDB
+```
 
-Run the precompute script to generate analytics data:
+### 6️⃣ **Run the FastAPI Server**
+```bash
+uvicorn database:app --reload
+```
+Access API docs at: **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)**
 
-      ```bash
-      python scripts/precompute.py
-5.**Run the application:**
+---
 
-      ```bash
-      uvicorn app.main\:app --reload
-Usage
-API Endpoints:
+## 📊 API Endpoints
+### 🔹 **Analytics**
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/analytics/revenue` | GET | Monthly revenue trend |
+| `/api/analytics/cancellations` | GET | Cancellation rate |
+| `/api/analytics/geography` | GET | Booking distribution by country |
+| `/api/analytics/lead_time` | GET | Histogram of booking lead times |
 
-GET /: Welcome message.
-POST /ask: Accepts a question and returns an answer using the RAG system.
-POST /api/analytics: Generates analytics reports based on the requested type and format.
-Sample Test Queries:
+### 🔹 **LLM-Powered Chatbot**
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/ask` | POST | Query the AI assistant |
 
-Query: What is the revenue trend over time?
-Expected Response: An image showing the revenue trends.
-Query: What is the cancellation rate?
-Expected Response: A JSON object with the cancellation rate.
-Project Structure
-app/: Contains the main application code.
-data/: Stores datasets and SQLite databases.
-scripts/: Contains the precompute script for generating analytics data.
-.env: Environment variables.
-README.md: Setup and usage instructions.
-requirements.txt: Python dependencies.
-report.md: Implementation choices and challenges.
-Report
-For a detailed explanation of implementation choices and challenges faced, see the report.
+**Example Query:**
+```json
+{
+  "question": "What was the highest revenue month last year?"
+}
+```
+
+**Expected Response:**
+```json
+{
+  "answer": "The highest revenue month was December 2023 with $125,000."
+}
+```
+
+---
+
+## 🔬 Sample Test Queries & Expected Answers
+| Query | Expected Answer |
+|----------|-----------------|
+| "What is the average cancellation rate?" | "The cancellation rate is 18.5%." |
+| "Which country has the most bookings?" | "The most bookings come from Portugal (25%)." |
+
+---
+
+## 📑 Implementation Details
+- **ChromaDB** is used for **vector search** on booking data.
+- **OpenAI API** provides natural language responses.
+- **FastAPI** manages the backend for analytics & QA.
+- **Precomputed analytics** ensure fast API responses.
+
+### ❗ Challenges & Solutions
+1. **Handling Large Datasets** → Used SQLite indexing & ChromaDB for fast retrieval.
+2. **Enhancing Response Accuracy** → Implemented RAG with top-5 document retrieval.
+3. **Optimizing API Latency** → Precomputed analytics instead of real-time computation.
+
+---
+
+## 📌 Future Improvements
+- **Hybrid Search (BM25 + embeddings)** for better accuracy.
+- **Authentication & Rate Limiting** to prevent API abuse.
+- **Real-time ChromaDB Updates** when new booking data is added.
+
+---
+
+## 📜 License
+This project is licensed under the MIT License.
+
+---
+
+## ⭐ Contributing
+Contributions are welcome! Feel free to open issues and submit pull requests.
+
+---
+
+## 📬 Contact
+For any questions, reach out to **manugowda6160@gmail.com**.
+
